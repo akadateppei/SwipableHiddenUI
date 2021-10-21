@@ -14,7 +14,7 @@ public struct SHUPuniView: View {
         CGSize(width: radiusOfMenu * 2, height: radiusOfMenu * 2)
     }
 
-    var theta: Double {
+    var angle: Double {
         2 * .pi / Double(numberOfMenu)
     }
 
@@ -26,7 +26,10 @@ public struct SHUPuniView: View {
                 startLocation = value.startLocation
 
                 withAnimation(.easeOut(duration: 0.3)) {
-                    culculateMenuPositions()
+                    menuPoints = SHUCulculator.culculateMenuPoints(number: numberOfMenu,
+                                                                   distance: distance,
+                                                                   centerPoint: startLocation,
+                                                                   angle: angle)
                 }
                 translation = value.translation
             }
@@ -45,22 +48,5 @@ public struct SHUPuniView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .gesture(dragGesture)
-    }
-
-    private func culculateMenuPositions() {
-        for i in 0..<numberOfMenu {
-            if i == 0 {
-                let x = startLocation.x
-                let y = startLocation.y - distance
-                menuPoints.append(CGPoint(x: x, y: y))
-            } else {
-                // Affine transformation
-                let s = startLocation
-                let mb = menuPoints[i - 1]
-                let x = mb.x * cos(theta) - mb.y * sin(theta) + s.x - s.x * cos(theta) + s.y * sin(theta)
-                let y = mb.x * sin(theta) + mb.y * cos(theta) + s.y - s.x * sin(theta) - s.y * cos(theta)
-                menuPoints.append(CGPoint(x: x, y: y))
-            }
-        }
     }
 }
