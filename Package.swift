@@ -26,6 +26,6 @@ let package = Package(
             dependencies: []),
         .testTarget(
             name: "SwipableHiddenUITests",
-            dependencies: ["SwipableHiddenUI"]),
+            dependencies: ["SwipableHiddenUI"])
     ]
 )
