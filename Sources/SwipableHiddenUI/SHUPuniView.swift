@@ -4,16 +4,9 @@ public struct SHUPuniView: View {
     @State var startLocation: CGPoint = CGPoint.zero
     @State var translation: CGSize = CGSize.zero
     @State var isTapped = false
-    @State var menuPoints: [CGPoint] = [] {
-        didSet {
-            if menuPoints.count == numberOfMenu {
-                isTapped = true
-            }
-        }
-    }
+    @State var menuPoints: [CGPoint] = []
 
-    // It may not work properly for even numbers.
-    private let numberOfMenu: Int = 7
+    private let numberOfMenu: Int = 3
     private let radiusOfMenu: Double = 15
     private let distance: Double = 100
     private var sizeOfMenu: CGSize {
@@ -31,6 +24,7 @@ public struct SHUPuniView: View {
             .onChanged { value in
                 startLocation = value.startLocation
                 culculateMenuPositions()
+                isTapped = true
                 translation = value.translation
             }
             .onEnded { value in
