@@ -11,6 +11,7 @@
 		C0D5D34927203110002E5233 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D5D34827203110002E5233 /* ContentView.swift */; };
 		C0D5D34B27203111002E5233 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0D5D34A27203111002E5233 /* Assets.xcassets */; };
 		C0D5D34E27203111002E5233 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0D5D34D27203111002E5233 /* Preview Assets.xcassets */; };
+		C0E3B8E82721A94D006C1BD9 /* SwipableHiddenUI in Frameworks */ = {isa = PBXBuildFile; productRef = C0E3B8E72721A94D006C1BD9 /* SwipableHiddenUI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0E3B8E82721A94D006C1BD9 /* SwipableHiddenUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -37,6 +39,7 @@
 			children = (
 				C0D5D34527203110002E5233 /* Demo */,
 				C0D5D34427203110002E5233 /* Products */,
+				C0E3B8E62721A94D006C1BD9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -67,6 +70,13 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		C0E3B8E62721A94D006C1BD9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -83,6 +93,9 @@
 			dependencies = (
 			);
 			name = Demo;
+			packageProductDependencies = (
+				C0E3B8E72721A94D006C1BD9 /* SwipableHiddenUI */,
+			);
 			productName = Demo;
 			productReference = C0D5D34327203110002E5233 /* Demo.app */;
 			productType = "com.apple.product-type.application";
@@ -269,6 +282,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Demo/Preview Content\"";
+				DEVELOPMENT_TEAM = R2TRV6Q42C;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -298,6 +312,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Demo/Preview Content\"";
+				DEVELOPMENT_TEAM = V539UB4424;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -341,6 +356,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C0E3B8E72721A94D006C1BD9 /* SwipableHiddenUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SwipableHiddenUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C0D5D33B27203110002E5233 /* Project object */;
 }
