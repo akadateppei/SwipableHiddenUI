@@ -24,24 +24,24 @@ public struct SHUPuniView: View {
         DragGesture(minimumDistance: 0)
             .onChanged { value in
                 startLocation = value.startLocation
-                culculateMenuPositions()
-                isTapped = true
+
+                withAnimation(.easeOut(duration: 0.3)) {
+                    culculateMenuPositions()
+                }
                 translation = value.translation
             }
             .onEnded { value in
                 // fire some action
+                menuPoints.removeAll()
                 startLocation = CGPoint.zero
                 translation = CGSize.zero
-                menuPoints = []
             }
     }
 
     public var body: some View {
         ZStack {
             Color.white
-            if isTapped {
-                SHUMenus(size: sizeOfMenu, menuPoints: menuPoints)
-            }
+            SHUMenus(size: sizeOfMenu, menuPoints: $menuPoints)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .gesture(dragGesture)

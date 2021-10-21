@@ -9,10 +9,10 @@ import SwiftUI
 
 struct SHUMenus: View {
     let size: CGSize
-    var menuPoints: [CGPoint]
+    var menuPoints: Binding<[CGPoint]>
 
     var body: some View {
-        ForEach(menuPoints, id: \.x) { point in
+        ForEach(menuPoints.wrappedValue, id: \.x) { point in
             Circle()
                 .fill(Color.red)
                 .frame(width: size.width, height: size.height)
@@ -20,7 +20,7 @@ struct SHUMenus: View {
         }
     }
 
-    init(size: CGSize, menuPoints: [CGPoint]) {
+    init(size: CGSize, menuPoints: Binding<[CGPoint]>) {
         self.size = size
         self.menuPoints = menuPoints
     }
