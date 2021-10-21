@@ -6,6 +6,7 @@ public struct SHUPuniView: View {
     @State var isTapped = false
     @State var menuPoints: [CGPoint] = []
 
+    // It may not work properly for even numbers.
     private let numberOfMenu: Int = 3
     private let radiusOfMenu: Double = 15
     private let distance: Double = 100
