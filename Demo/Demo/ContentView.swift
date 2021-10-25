@@ -9,8 +9,18 @@ import SwiftUI
 import SwipableHiddenUI
 
 struct ContentView: View {
+    @State var menus: [SHUMenu]
+
     var body: some View {
-        SHUPuniView()
+        SHUPuniView(menus: self.menus)
+    }
+
+    init() {
+        menus = [
+            .init(image: .init(systemName: "faceid"), action: { print("selected 1") }),
+            .init(image: .init(systemName: "faceid"), action: { print("selected 2") }),
+            .init(image: .init(systemName: "faceid"), action: { print("selected 3") }),
+        ]
     }
 }
 

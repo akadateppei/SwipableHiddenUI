@@ -2,51 +2,78 @@ import SwiftUI
 
 public struct SHUPuniView: View {
     @State var startLocation: CGPoint = CGPoint.zero
-    @State var translation: CGSize = CGSize.zero
-    @State var isTapped = false
-    @State var menuPoints: [CGPoint] = []
-
-    // It may not work properly for even numbers.
-    private let numberOfMenu: Int = 3
-    private let radiusOfMenu: Double = 15
-    private let distance: Double = 100
-    private var sizeOfMenu: CGSize {
-        CGSize(width: radiusOfMenu * 2, height: radiusOfMenu * 2)
+    @State var currentLocation: CGPoint = CGPoint.zero {
+        didSet {
+            onChangeCurrentLocation()
+        }
     }
+    @State var menuPoints: [CGPoint] = []
+    @State var menuStates: [Bool]
+
+    private let menus: [SHUMenu]
+    private let size: CGSize
+    private let distance: Double = 100
 
     var angle: Double {
-        2 * .pi / Double(numberOfMenu)
+        2 * .pi / Double(menus.count)
     }
-
-    public init(){}
 
     private var dragGesture: some Gesture {
         DragGesture(minimumDistance: 0)
             .onChanged { value in
                 startLocation = value.startLocation
+                currentLocation = value.location
 
                 withAnimation(.easeOut(duration: 0.3)) {
-                    menuPoints = SHUCulculator.culculateMenuPoints(number: numberOfMenu,
+                    menuPoints = SHUCulculator.culculateMenuPoints(number: menus.count,
                                                                    distance: distance,
                                                                    centerPoint: startLocation,
                                                                    angle: angle)
                 }
-                translation = value.translation
             }
             .onEnded { value in
-                // fire some action
+                fireActionIfNeeded()
                 menuPoints.removeAll()
-                startLocation = CGPoint.zero
-                translation = CGSize.zero
+                startLocation = .zero
+                currentLocation = .zero
+                menuStates = .init(repeating: false, count: menus.count)
             }
     }
 
     public var body: some View {
         ZStack {
             Color.white
-            SHUMenus(size: sizeOfMenu, menuPoints: $menuPoints)
+            ForEach(0..<menuPoints.count, id: \.self) { index in
+                SHUMenuView(menu: menus[index], position: menuPoints[index], size: size, animating: $menuStates[index])
+            }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .gesture(dragGesture)
+    }
+
+    public init(menus: [SHUMenu], size: CGSize = .init(width: 60, height: 60)) {
+        self.menus = menus
+        self.size = size
+        menuStates = .init(repeating: false, count: menus.count)
+    }
+
+    private func onChangeCurrentLocation() {
+        for index in 0..<menuPoints.count {
+            if menuPoints[index].x - size.width / 2 < currentLocation.x, currentLocation.x < menuPoints[index].x + size.width / 2,
+               menuPoints[index].y - size.height / 2 < currentLocation.y, currentLocation.y < menuPoints[index].y + size.height / 2{
+                menuStates[index] = true
+            } else {
+                menuStates[index] = false
+            }
+        }
+    }
+
+    private func fireActionIfNeeded() {
+        for index in 0..<menuPoints.count {
+            if menuPoints[index].x - size.width / 2 < currentLocation.x, currentLocation.x < menuPoints[index].x + size.width / 2,
+               menuPoints[index].y - size.height / 2 < currentLocation.y, currentLocation.y < menuPoints[index].y + size.height / 2{
+                menus[index].action()
+            }
+        }
     }
 }
