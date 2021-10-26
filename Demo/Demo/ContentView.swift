@@ -12,14 +12,14 @@ struct ContentView: View {
     @State var menus: [SHUMenu]
 
     var body: some View {
-        SHUPuniView(menus: self.menus)
+        SHUHiddenMenuView(menus: self.menus, size: .init(width: 60, height: 60))
     }
 
     init() {
         menus = [
-            .init(image: .init(systemName: "faceid"), action: { print("selected 1") }),
-            .init(image: .init(systemName: "faceid"), action: { print("selected 2") }),
-            .init(image: .init(systemName: "faceid"), action: { print("selected 3") }),
+            .init(image: .init(systemName: "house"), action: { print("selected 1") }),
+            .init(image: .init(systemName: "pencil"), action: { print("selected 2") }),
+            .init(image: .init(systemName: "person"), action: { print("selected 3") }),
         ]
     }
 }

@@ -1,20 +1,20 @@
 import SwiftUI
 
-public struct SHUPuniView: View {
-    @State var startLocation: CGPoint = CGPoint.zero
-    @State var currentLocation: CGPoint = CGPoint.zero {
+public struct SHUHiddenMenuView: View {
+    @State private var startLocation: CGPoint = CGPoint.zero
+    @State private var currentLocation: CGPoint = CGPoint.zero {
         didSet {
             onChangeCurrentLocation()
         }
     }
-    @State var menuPoints: [CGPoint] = []
-    @State var menuStates: [Bool]
+    @State private var menuPoints: [CGPoint] = []
+    @State private var menuStates: [Bool]
 
     private let menus: [SHUMenu]
     private let size: CGSize
-    private let distance: Double = 100
+    private let distance: Double
 
-    var angle: Double {
+    private var angle: Double {
         2 * .pi / Double(menus.count)
     }
 
@@ -51,9 +51,10 @@ public struct SHUPuniView: View {
         .gesture(dragGesture)
     }
 
-    public init(menus: [SHUMenu], size: CGSize = .init(width: 60, height: 60)) {
+    public init(menus: [SHUMenu], size: CGSize = .init(width: 60, height: 60), distance: Double = 60) {
         self.menus = menus
         self.size = size
+        self.distance = distance
         menuStates = .init(repeating: false, count: menus.count)
     }
 
